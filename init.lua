@@ -26,14 +26,14 @@ local lazyOpts = {
 require("lazy").setup("plugins")
 
 -- See `:help vim.o`
-vim.opt.fileformats=unix,dos,mac
+vim.o.fileformats=unix,dos,mac
 
-vim.opt.autoindent = true
+vim.o.autoindent = true
 vim.o.expandtab = true
 
-vim.opt.tabstop = 2
+vim.o.tabstop = 2
 vim.o.softtabstop = 2
-vim.opt.shiftwidth = 2
+vim.o.shiftwidth = 2
 
 vim.o.hlsearch = true
 -- vim.o.mouse = 'a'
@@ -49,7 +49,13 @@ vim.o.timeoutlen = 300
 vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 
-vim.opt.mouse=''
+vim.o.wildmenu = true
+vim.o.wildmode = 'longest:full'
+
+vim.o.mouse = ''
+
+vim.opt.iskeyword:append('-')
+vim.opt.matchpairs:append('<:>')
 
 --[[
 " ------------------------------------------------------------------------------
@@ -69,9 +75,7 @@ set expandtab
 set nofoldenable
 set hlsearch
 set noincsearch
-set iskeyword+=-
 set laststatus=2
-set matchpairs+=<:>
 set modeline
 set modelines=5
 set ruler
@@ -84,8 +88,6 @@ set tabstop=2
 set noundofile
 
 set directory=$HOME/.vim/tmp
-set wildmode=longest:full
-set wildmenu
 set iminsert=0
 set imsearch=0
 
@@ -108,6 +110,13 @@ vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
 -- vim.keymap.set('v', 'j', 'gj')
 -- vim.keymap.set('v', 'k', 'gk')
+
+vim.keymap.set('c', '<C-a>', '<Home>')
+vim.keymap.set('c', '<C-e>', '<End>')
+vim.keymap.set('c', '<C-f>', '<Right>')
+vim.keymap.set('c', '<C-b>', '<Left>')
+vim.keymap.set('c', '<C-h>', '<BS>')
+vim.keymap.set('c', '<C-d>', '<Del>')
 
 --[[
 nnoremap <ESC><ESC> :nohlsearch<CR>
