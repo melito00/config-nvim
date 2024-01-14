@@ -26,7 +26,11 @@ local lazyOpts = {
 require("lazy").setup("plugins")
 
 -- See `:help vim.o`
-vim.o.fileformats=unix,dos,mac
+vim.o.fileformats = 'unix,dos,mac'
+vim.scriptencoding = 'utf-8'
+vim.o.encoding = 'utf-8'
+vim.ofileencoding = 'utf-8'
+vim.ofileencodings = 'iso-2022-jp,utf-8,euc-jp,cp932'
 
 vim.o.autoindent = true
 vim.o.expandtab = true
@@ -35,9 +39,11 @@ vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 
+vim.o.incsearch = false
 vim.o.hlsearch = true
 -- vim.o.mouse = 'a'
 
+vim.o.guicursor = ''
 vim.o.mouse = ''
 -- vim.o.clipboard = 'unnamedplus'
 -- vim.o.breakindent = true
@@ -52,6 +58,7 @@ vim.o.termguicolors = true
 vim.o.wildmenu = true
 vim.o.wildmode = 'longest:full'
 
+vim.o.cursorline = true
 vim.o.mouse = ''
 
 vim.opt.iskeyword:append('-')
@@ -59,22 +66,11 @@ vim.opt.matchpairs:append('<:>')
 
 --[[
 " ------------------------------------------------------------------------------
-set fileformats=unix,dos,mac
-set encoding=utf-8
-set fileencoding=utf-8
-scriptencoding=utf-8
-"set fileencodings=euc-jp,cp932,iso-2022-jp
-"set fileencodings=iso-2022-jp,euc-jp,cp932
-set fileencodings=iso-2022-jp,utf-8,euc-jp,cp932
 
 set ambiwidth=double
 set nobackup
 set backspace=""
-set cursorline
-set expandtab
 set nofoldenable
-set hlsearch
-set noincsearch
 set laststatus=2
 set modeline
 set modelines=5
@@ -83,15 +79,11 @@ set showcmd
 set noshowmode
 set shiftwidth=2
 set noshowmatch
-set softtabstop=2
-set tabstop=2
 set noundofile
 
 set directory=$HOME/.vim/tmp
 set iminsert=0
 set imsearch=0
-
-set mouse-=a " Disable automatic visual mode using mouse
 
 "set statusline=%<%F\ %y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)%m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
 
@@ -158,4 +150,22 @@ if 1
   vmap <Leader>p "+p
   vmap <Leader>P "+P
 endif
+--]]
+
+--[[
+-- LSPの警告フォーマット
+-- ref: https://dev.classmethod.jp/articles/eetann-change-neovim-lsp-diagnostics-format/
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = {
+    format = function(diagnostic)
+      return string.format('%s (%s: %s)', diagnostic.message, diagnostic.source, diagnostic.code)
+    end,
+  },
+})
+
+local null_ls = require("null-ls")
+null_ls.setup({
+  diagnostics_format = "#{m} (#{s}: #{c})",
+ 	-- 省略
+})
 --]]
