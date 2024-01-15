@@ -169,3 +169,13 @@ null_ls.setup({
  	-- 省略
 })
 --]]
+
+-- Open memo.org
+vim.api.nvim_create_user_command("MyMemo", function(opts)
+  vim.cmd("e " .. "~/memo-rep/memo.org")
+end, {})
+
+-- Open memo.org
+vim.api.nvim_create_user_command("MyConfig", function(opts)
+  vim.cmd("e " .. vim.fn.stdpath('config') .. '/init.lua')
+end, {})
