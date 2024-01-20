@@ -9,7 +9,7 @@ return {
 
       -- 辞書を探す
       local dictionaries = {}
-      table.insert(dictionaries, "/home/kyamada/SKK-JISYO.L")
+      table.insert(dictionaries, vim.env.HOME .. "SKK-JISYO.L")
 
       vim.api.nvim_create_autocmd("User", {
         pattern = "skkeleton-initialize-pre",
@@ -21,6 +21,12 @@ return {
           })
         end,
       })
+    end,
+  },
+  {
+    "delphinus/skkeleton_indicator.nvim",
+    config = function()
+      require('skkeleton_indicator').setup{}
     end,
   },
 }
