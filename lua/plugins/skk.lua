@@ -25,8 +25,8 @@ return {
   },
   {
     "delphinus/skkeleton_indicator.nvim",
-    config = function()
-      require('skkeleton_indicator').setup{}
-    end,
+    lazy = false,
+    dependencies = { "vim-skk/skkeleton" },
+    config = true,
   },
 }
