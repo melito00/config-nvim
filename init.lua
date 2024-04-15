@@ -1,6 +1,8 @@
 --[[
 
 --]]
+vim.g.mapleader = ','
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
   if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -24,6 +26,32 @@ local lazyOpts = {
 }
 
 require("lazy").setup("plugins")
+--[[
+Examples
+https://github.com/acro5piano/dotfiles/blob/main/home/.config/nvim/init.lua
+https://zenn.dev/fukakusa_kadoma/articles/4d48fb4e67c945
+https://wagomu.me/blog/2023-05-17-vim-ekiden/
+
+fzf-lua :: https://github.com/ibhagwan/fzf-lua
+nvim-comment :: https://github.com/terrortylor/nvim-comment
+nvim-surround :: https://github.com/kylechui/nvim-surround
+nvim-treesitter :: https://github.com/nvim-treesitter/nvim-treesitter
+
+nvim-cmp :: https://github.com/hrsh7th/nvim-cmp
+cmp-rg :: https://github.com/lukas-reineke/cmp-rg
+nvim-snippy :: https://github.com/dcampos/nvim-snippy
+dial.nvim :: https://github.com/monaqa/dial.nvim
+  https://zenn.dev/vim_jp/articles/2023-04-12-vim-dial-additive-increment
+
+nvim-lualine :: https://github.com/nvim-lualine/lualine.nvim
+
+** filter
+oil.nvim :: https://github.com/stevearc/oil.nvim
+
+** colorscheme
+https://github.com/rmehri01/onenord.nvim
+https://github.com/sainnhe/everforest
+--]]
 
 -- See `:help vim.o`
 vim.o.fileformats = 'unix,dos,mac'
@@ -61,8 +89,10 @@ vim.o.wildmode = 'longest:full'
 vim.o.cursorline = true
 vim.o.mouse = ''
 
+vim.opt.backspace = ''
 vim.opt.iskeyword:append('-')
 vim.opt.matchpairs:append('<:>')
+vim.opt.whichwrap = ''
 
 --[[
 " ------------------------------------------------------------------------------
@@ -98,6 +128,11 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 -- vim.cmd([[autocmd FileType * set formatoptions-=ro]])
 
 -- keymaps
+
+-- local map = vim.api.nvim_set_keymap
+-- options = { noremap = true }
+-- map('n', '<C-n>', ':NvimTreeToggle<cr>', options)
+
 vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
 -- vim.keymap.set('v', 'j', 'gj')
@@ -170,9 +205,11 @@ null_ls.setup({
 })
 --]]
 
+vim.keymap.set("n", "<leader>d", ':r! date "+\\%Y.\\%m.\\%d \\%H:\\%M:\\%S"<CR>I* <ESC>$', {noremap = true})
+
 -- Open memo.org
 vim.api.nvim_create_user_command("MyMemo", function(opts)
-  vim.cmd("e " .. "~/memo-rep/memo.org")
+  vim.cmd("e " .. "~/memo-rep/" .. vim.fn.strftime('%Y') .. '/' .. vim.fn.strftime('%Y') .. '.org')
 end, {})
 
 -- Open memo.org
